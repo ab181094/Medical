@@ -22,7 +22,16 @@
         <activity
             android:name=".menu.MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".signup.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:parentActivityName=".menu.MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.csecu.amrit.medical.menu.MenuActivity" />
+        </activity>
     </application>
 
 </manifest>

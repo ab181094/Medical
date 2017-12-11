@@ -3,4 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_menu">Main Menu</string>
     <string name="textview">TextView</string>
+    <string name="title_activity_signup">Sign-up</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_bm_amp_dc_registration_no"><![CDATA[Enter BM&DC Registration No:]]></string>
 </resources>

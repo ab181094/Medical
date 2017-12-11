@@ -1,8 +1,7 @@
 package com.csecu.amrit.medical.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.csecu.amrit.medical.R;
+import com.csecu.amrit.medical.signup.SignupActivity;
 
 public class MenuActivity extends AppCompatActivity {
     GridView gridView;
@@ -30,7 +30,9 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 4) {
-                    toastIt("Clicked Icon: " + iconName[position]);
+                    // toastIt("Clicked Icon: " + iconName[position]);
+                    Intent intent = new Intent(MenuActivity.this, SignupActivity.class);
+                    startActivity(intent);
                 }
             }
         });

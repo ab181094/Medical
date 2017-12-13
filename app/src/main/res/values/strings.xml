@@ -8,4 +8,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_bm_amp_dc_registration_no"><![CDATA[Enter BM&DC Registration No:]]></string>
+    <string name="title_activity_doctor_signup">Doctor Sign-up</string>
 </resources>

@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:background="@color/colorDark"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context="com.csecu.amrit.medical.signup.RegistrationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:text="@string/enter_bm_amp_dc_registration_no"
+        android:textColor="@color/colorLight"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/registration_etRegNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:labelFor="@id/registration_etRegNo"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/registration_btCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/checkbox_on_background" />
+
+</LinearLayout>

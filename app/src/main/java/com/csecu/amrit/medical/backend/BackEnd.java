@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.csecu.amrit.medical.doctorSignup.DoctorSignupActivity;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -96,14 +98,14 @@ public class BackEnd extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         toastIt(s);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(context, ViewListActivity.class);
-                startActivity(intent);
-                finish();
+                Intent intent = new Intent(context, DoctorSignupActivity.class);
+                context.startActivity(intent);
             }
-        }, 1000);
+        }, 2000);
     }
 
     private void toastIt(String s) {

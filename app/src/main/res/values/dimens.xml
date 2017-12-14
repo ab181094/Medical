@@ -1,3 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="headline_font">20sp</dimen>
+    <dimen name="spaceTen">10dp</dimen>
+    <dimen name="spaceFive">5dp</dimen>
+    <dimen name="spaceTwenty">20dp</dimen>
 </resources>

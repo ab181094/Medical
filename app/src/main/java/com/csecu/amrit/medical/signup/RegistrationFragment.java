@@ -38,6 +38,7 @@ public class RegistrationFragment extends Fragment {
             public void onClick(View v) {
                 String type = "check";
                 String number = etNumber.getText().toString().toLowerCase().trim();
+                etNumber.setText("");
                 // toastIt(number);
                 BackEnd backEnd = new BackEnd(getContext());
                 backEnd.execute(type, number);

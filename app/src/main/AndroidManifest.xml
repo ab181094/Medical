@@ -38,7 +38,8 @@
             android:name=".doctorSignup.DoctorSignupActivity"
             android:label="@string/title_activity_doctor_signup"
             android:parentActivityName=".menu.MenuActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.csecu.amrit.medical.menu.MenuActivity" />

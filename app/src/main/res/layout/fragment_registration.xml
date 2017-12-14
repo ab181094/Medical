@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/spaceTen"
         android:clickable="true"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/checkbox_on_background" />

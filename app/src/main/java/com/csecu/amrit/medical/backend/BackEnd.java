@@ -33,6 +33,11 @@ public class BackEnd extends AsyncTask<String, Void, String> {
     String protocol_exception_error = "There is an error in the underlying protocol";
     String io_exception_error = "I/O exception of some sort has occurred";
     String unknown_error = "Unknown error has occurred";
+    String reg_success_msg = "Registration number found";
+    String reg_failed_msg = "Registration number not found";
+
+    String registrationNumber;
+    String type;
     Context context;
 
     public BackEnd(Context context) {
@@ -41,9 +46,10 @@ public class BackEnd extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String type = params[0];
+        type = params[0];
         if (type == "check") {
             String number = params[1];
+            registrationNumber = number;
             input_url = "http://10.2.3.100/medical/check.php";
 
             try {
@@ -89,6 +95,9 @@ public class BackEnd extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
                 return io_exception_error;
             }
+        } else if (type == "registration") {
+            String name = params[1];
+            return name;
         } else {
             return unknown_error;
         }
@@ -97,15 +106,25 @@ public class BackEnd extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        toastIt(s);
+        s = s.trim();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(context, DoctorSignupActivity.class);
-                context.startActivity(intent);
+        if (type == "check") {
+            if (s.equals("1")) {
+                toastIt(reg_success_msg);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(context, DoctorSignupActivity.class);
+                        intent.putExtra("registration", registrationNumber);
+                        context.startActivity(intent);
+                    }
+                }, 2000);
+            } else {
+                toastIt(reg_failed_msg);
             }
-        }, 2000);
+        } else if (type == "registration") {
+            toastIt(s);
+        }
     }
 
     private void toastIt(String s) {

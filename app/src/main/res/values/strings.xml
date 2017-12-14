@@ -9,4 +9,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_bm_amp_dc_registration_no"><![CDATA[Enter BM&DC Registration No:]]></string>
     <string name="title_activity_doctor_signup">Doctor Sign-up</string>
+    <string name="REGISTRATION_NUMBER">registration number</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email_mobile">Email / Mobile</string>
+    <string name="sex">Sex</string>
+    <string name="speciality">Speciality</string>
+    <string name="qualification">Qualification</string>
+    <string name="USER_NAME">user name</string>
+    <string name="USER_PASSWORD">user password</string>
+    <string name="USER_CONTACT">user contact</string>
+    <string name="USER_SEX">user sex</string>
+    <string name="USER_SPECIAL">user special</string>
+    <string name="USER_QUALIFICATION">user qualification</string>
 </resources>

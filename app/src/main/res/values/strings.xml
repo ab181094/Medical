@@ -23,4 +23,14 @@
     <string name="USER_SEX">user sex</string>
     <string name="USER_SPECIAL">user special</string>
     <string name="USER_QUALIFICATION">user qualification</string>
+    <string name="other_information">Other Information</string>
+    <string name="chamber">Chamber</string>
+    <string name="visiting_fee">Visiting Fee</string>
+    <string name="add_another">Add Another</string>
+    <string name="available_hours">Available Hours</string>
+    <string name="available_days">Available days</string>
+    <string name="USER_CHAMBER">user chamber</string>
+    <string name="USER_DAYS">user days</string>
+    <string name="USER_HOURS">user hours</string>
+    <string name="USER_FEE">user fee</string>
 </resources>

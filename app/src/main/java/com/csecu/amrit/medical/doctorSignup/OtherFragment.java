@@ -4,6 +4,7 @@ package com.csecu.amrit.medical.doctorSignup;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -96,6 +97,17 @@ public class OtherFragment extends Fragment {
                 editor.commit();
 
                 toastIt("Data Saved");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageFragment fragment = new ImageFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                                getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.doctor_signup_fragment_container, fragment);
+                        fragmentTransaction.commit();
+                    }
+                }, 2000);
             }
         });
         return view;

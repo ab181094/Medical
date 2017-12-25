@@ -2,14 +2,18 @@ package com.csecu.amrit.medical.backend;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.Base64;
 import android.widget.Toast;
 
 import com.csecu.amrit.medical.doctorSignup.DoctorSignupActivity;
+import com.csecu.amrit.medical.menu.MenuActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,8 +30,8 @@ import java.net.URLEncoder;
  * Created by Amrit on 12-12-2017.
  */
 
-public class BackEnd extends AsyncTask<String, Void, String> {
-    String input_url = "";
+public class BackEnd extends AsyncTask {
+    String input_url = "http://192.168.137.1/medical/";
     String malformed_url_error = "Malformed URL has occurred";
     String unsupported_encoding_error = "Character Encoding is not supported";
     String protocol_exception_error = "There is an error in the underlying protocol";
@@ -45,71 +49,100 @@ public class BackEnd extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
-        type = params[0];
+    protected String doInBackground(Object[] params) {
+        type = (String) params[0];
         if (type == "check") {
-            String number = params[1];
+            String number = (String) params[1];
             registrationNumber = number;
-            input_url = "http://10.2.3.100/medical/check.php";
-
+            input_url = input_url + "check.php";
+            String data = null;
             try {
-                URL url = new URL(input_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter
-                        (new OutputStreamWriter(outputStream, "UTF-8"));
-                String data = URLEncoder.encode("number", "UTF-8") + "=" +
+                data = URLEncoder.encode("number", "UTF-8") + "=" +
                         URLEncoder.encode(number, "UTF-8");
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader
-                        (new InputStreamReader(inputStream, "iso-8859-1"));
-                String result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-
-                return result;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return malformed_url_error;
+                return sendData(input_url, data);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 return unsupported_encoding_error;
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-                return protocol_exception_error;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return io_exception_error;
             }
         } else if (type == "registration") {
-            String name = params[1];
+            String name = (String) params[1];
             return name;
+        } else if (type == "image") {
+            Bitmap image = (Bitmap) params[1];
+            String name = (String) params[2];
+            input_url = input_url + "upload.php";
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            String encodedImage = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+
+            String data = null;
+            try {
+                data = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8")
+                        + "&" + URLEncoder.encode("image", "UTF-8") + "=" +
+                        URLEncoder.encode(encodedImage, "UTF-8");
+                return sendData(input_url, data);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return unsupported_encoding_error;
+            }
         } else {
             return unknown_error;
         }
     }
 
+    private String sendData(String input_url, String data) {
+        try {
+            URL url = new URL(input_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter
+                    (new OutputStreamWriter(outputStream, "UTF-8"));
+
+            bufferedWriter.write(data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader
+                    (new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+
+            return result;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return malformed_url_error;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return unsupported_encoding_error;
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+            return protocol_exception_error;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return io_exception_error;
+        }
+    }
+
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        s = s.trim();
+    protected void onPostExecute(Object result) {
+        super.onPostExecute(result);
+        result = result.toString().trim();
 
         if (type == "check") {
-            if (s.equals("1")) {
+            if (result.equals("1")) {
                 toastIt(reg_success_msg);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -123,7 +156,16 @@ public class BackEnd extends AsyncTask<String, Void, String> {
                 toastIt(reg_failed_msg);
             }
         } else if (type == "registration") {
-            toastIt(s);
+            toastIt(result.toString());
+        } else if (type == "image") {
+            toastIt(result.toString());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(context, MenuActivity.class);
+                    context.startActivity(intent);
+                }
+            }, 2000);
         }
     }
 

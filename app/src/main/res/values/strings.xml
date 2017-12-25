@@ -33,4 +33,7 @@
     <string name="USER_DAYS">user days</string>
     <string name="USER_HOURS">user hours</string>
     <string name="USER_FEE">user fee</string>
+    <string name="image_information">Image Information</string>
+    <string name="select_image">Select Image</string>
+    <string name="upload_image">Upload Image</string>
 </resources>

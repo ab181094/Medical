@@ -1,14 +1,16 @@
 package com.csecu.amrit.medical;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.csecu.amrit.medical.menu.MenuActivity;
 
@@ -21,6 +23,11 @@ public class SplashActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        SharedPreferences sharedpreferences = getApplicationContext().
+                getSharedPreferences(getString(R.string.mypreference), Context.MODE_PRIVATE);
+        String token = sharedpreferences.getString(getString(R.string.APP_TOKEN), "");
+        toastIt(token);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +37,10 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void toastIt(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     @Override

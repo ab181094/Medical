@@ -36,4 +36,6 @@
     <string name="image_information">Image Information</string>
     <string name="select_image">Select Image</string>
     <string name="upload_image">Upload Image</string>
+    <string name="mypreference">mypref</string>
+    <string name="APP_TOKEN">app_token</string>
 </resources>

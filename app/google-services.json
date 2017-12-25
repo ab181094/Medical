@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "423645494486",
+    "firebase_url": "https://medical-274f7.firebaseio.com",
+    "project_id": "medical-274f7",
+    "storage_bucket": "medical-274f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423645494486:android:071939501cb93dcd",
+        "android_client_info": {
+          "package_name": "com.csecu.amrit.medical"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423645494486-1mv5m354kjearbgauv9f27ullp5o6bk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.csecu.amrit.medical",
+            "certificate_hash": "4f8b253a337a433513fb42ae2e4b3ad7a399ff96"
+          }
+        },
+        {
+          "client_id": "423645494486-c9d9l1p481e3psoc9i9douj88j94c8pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWniBarvZJmotxcGin03Ix8IQNOf2wOWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423645494486-c9d9l1p481e3psoc9i9douj88j94c8pm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

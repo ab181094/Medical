@@ -1,5 +1,7 @@
 package com.csecu.amrit.medical.doctorList;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -7,12 +9,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.csecu.amrit.medical.R;
 import com.csecu.amrit.medical.backend.AsyncResponse;
 import com.csecu.amrit.medical.backend.BackEnd;
+import com.csecu.amrit.medical.doctorDetails.DoctorDetailsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +45,25 @@ public class ListActivity extends AppCompatActivity implements AsyncResponse {
         BackEnd backEnd = new BackEnd(this);
         backEnd.delegate = this;
         backEnd.execute("get");
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Doctor doctor = (Doctor) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(ListActivity.this, DoctorDetailsActivity.class);
+                doctor.setImage(scaleDownBitmap(doctor.getImage(), 100, getApplicationContext()));
+                intent.putExtra("doctor", doctor);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public Bitmap scaleDownBitmap(Bitmap photo, int newHeight, Context context) {
+        final float densityMultiplier = context.getResources().getDisplayMetrics().density;
+        int h = (int) (newHeight * densityMultiplier);
+        int w = (int) (h * photo.getWidth() / ((double) photo.getHeight()));
+        photo = Bitmap.createScaledBitmap(photo, w, h, true);
+        return photo;
     }
 
     private ArrayList<Doctor> parseAll(String result) {
@@ -68,9 +92,22 @@ public class ListActivity extends AppCompatActivity implements AsyncResponse {
                 String imageName = object.getString("image");
                 String token = object.getString("token");
 
-                Doctor doctor = new Doctor(id, name, password, contact, sex, special,
-                        qualification, chamber, days, hours, fee, registration, imageName,
-                        token);
+                Doctor doctor = new Doctor();
+                doctor.setId(id);
+                doctor.setName(name);
+                doctor.setPassword(password);
+                doctor.setContact(contact);
+                doctor.setSex(sex);
+                doctor.setSpecial(special);
+                doctor.setQualification(qualification);
+                doctor.setChamber(chamber);
+                doctor.setDays(days);
+                doctor.setHours(hours);
+                doctor.setFee(fee);
+                doctor.setRegistration(registration);
+                doctor.setImageName(imageName);
+                doctor.setToken(token);
+
                 doctorList.add(doctor);
             }
         } catch (JSONException e) {

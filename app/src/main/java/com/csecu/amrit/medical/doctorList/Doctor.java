@@ -5,7 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Amrit on 26-12-2017.
+ * Created by Amrit on 27-12-2017.
  */
 
 public class Doctor implements Parcelable {
@@ -25,28 +25,6 @@ public class Doctor implements Parcelable {
     String registration, imageName, token;
     Bitmap image;
 
-    public Doctor() {
-    }
-
-    public Doctor(String id, String name, String password, String contact, String sex,
-                  String special, String qualification, String chamber, String days, String hours,
-                  String fee, String registration, String imageName, String token) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.contact = contact;
-        this.sex = sex;
-        this.special = special;
-        this.qualification = qualification;
-        this.chamber = chamber;
-        this.days = days;
-        this.hours = hours;
-        this.fee = fee;
-        this.registration = registration;
-        this.imageName = imageName;
-        this.token = token;
-    }
-
     protected Doctor(Parcel in) {
         id = in.readString();
         name = in.readString();
@@ -65,8 +43,32 @@ public class Doctor implements Parcelable {
         image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
-    public static Creator<Doctor> getCREATOR() {
-        return CREATOR;
+    public Doctor() {
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(password);
+        dest.writeString(contact);
+        dest.writeString(sex);
+        dest.writeString(special);
+        dest.writeString(qualification);
+        dest.writeString(chamber);
+        dest.writeString(days);
+        dest.writeString(hours);
+        dest.writeString(fee);
+        dest.writeString(registration);
+        dest.writeString(imageName);
+        dest.writeString(token);
+        dest.writeParcelable(image, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public String getId() {
@@ -187,29 +189,5 @@ public class Doctor implements Parcelable {
 
     public void setImage(Bitmap image) {
         this.image = image;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(password);
-        dest.writeString(contact);
-        dest.writeString(sex);
-        dest.writeString(special);
-        dest.writeString(qualification);
-        dest.writeString(chamber);
-        dest.writeString(days);
-        dest.writeString(hours);
-        dest.writeString(fee);
-        dest.writeString(registration);
-        dest.writeString(imageName);
-        dest.writeString(token);
-        dest.writeParcelable(image, flags);
     }
 }

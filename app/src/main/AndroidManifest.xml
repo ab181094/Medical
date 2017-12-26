@@ -66,6 +66,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.csecu.amrit.medical.menu.MenuActivity" />
         </activity>
+        <activity
+            android:name=".doctorDetails.DoctorDetailsActivity"
+            android:label="@string/title_activity_doctor_details"
+            android:parentActivityName=".doctorList.ListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.csecu.amrit.medical.doctorList.ListActivity" />
+        </activity>
     </application>
 
 </manifest>

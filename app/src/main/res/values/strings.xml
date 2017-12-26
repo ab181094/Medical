@@ -39,4 +39,7 @@
     <string name="mypreference">mypref</string>
     <string name="APP_TOKEN">app_token</string>
     <string name="title_activity_list">Doctors</string>
+    <string name="title_activity_doctor_details">Details</string>
+    <string name="take_appointment">Take Appointment</string>
+    <string name="reg_no">Reg. No</string>
 </resources>

@@ -111,9 +111,7 @@ public class ImageFragment extends Fragment {
             SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
             String registrationNumber = sharedPref.getString
                     (getString(R.string.REGISTRATION_NUMBER), null);
-            String contact = sharedPref.getString
-                    (getString(R.string.USER_CONTACT), null);
-            imageName = registrationNumber + "_" + contact;
+            imageName = registrationNumber;
             imageName = imageName + filePath.substring(filePath.lastIndexOf("."));
             File renamedFile = new File(imageName);
             file.renameTo(renamedFile);

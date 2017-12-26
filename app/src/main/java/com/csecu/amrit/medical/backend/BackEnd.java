@@ -32,7 +32,9 @@ import java.net.URLEncoder;
  */
 
 public class BackEnd extends AsyncTask {
-    String input_url = "http://192.168.137.1/medical/";
+    public AsyncResponse delegate = null;
+    //String input_url = "http://192.168.137.1/medical/";
+    String input_url = "http://10.2.3.100/medical/";
     String malformed_url_error = "Malformed URL has occurred";
     String unsupported_encoding_error = "Character Encoding is not supported";
     String protocol_exception_error = "There is an error in the underlying protocol";
@@ -40,10 +42,10 @@ public class BackEnd extends AsyncTask {
     String unknown_error = "Unknown error has occurred";
     String reg_success_msg = "Registration number found";
     String reg_failed_msg = "Registration number not found";
-
     String registrationNumber;
     String type;
     Context context;
+    String JSON_STRING = null;
 
     public BackEnd(Context context) {
         this.context = context;
@@ -64,6 +66,30 @@ public class BackEnd extends AsyncTask {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 return unsupported_encoding_error;
+            }
+        } else if (type == "get") {
+            String get_url = input_url + "select.php";
+            try {
+                URL url = new URL(get_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((JSON_STRING = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(JSON_STRING + "\n");
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return malformed_url_error;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return io_exception_error;
             }
         } else if (type == "registration") {
             Bitmap image = (Bitmap) params[1];
@@ -207,6 +233,8 @@ public class BackEnd extends AsyncTask {
                     context.startActivity(intent);
                 }
             }, 2000);
+        } else if (type == "get") {
+            delegate.processFinish(result);
         }
     }
 

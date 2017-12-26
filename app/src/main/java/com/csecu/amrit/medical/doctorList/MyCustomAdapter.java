@@ -56,7 +56,7 @@ public class MyCustomAdapter extends ArrayAdapter<Doctor> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
+        viewHolder.imageView.setImageBitmap(item.getImage());
         viewHolder.tvName.setText(name);
         viewHolder.tvSpecial.setText(special);
         viewHolder.tvChamber.setText(chamber);

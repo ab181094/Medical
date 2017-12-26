@@ -1,5 +1,6 @@
 package com.csecu.amrit.medical.doctorList;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -22,23 +23,7 @@ public class Doctor implements Parcelable {
     String id;
     String name, password, contact, sex, special, qualification, chamber, days, hours, fee;
     String registration, imageName, token;
-
-    protected Doctor(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        password = in.readString();
-        contact = in.readString();
-        sex = in.readString();
-        special = in.readString();
-        qualification = in.readString();
-        chamber = in.readString();
-        days = in.readString();
-        hours = in.readString();
-        fee = in.readString();
-        registration = in.readString();
-        imageName = in.readString();
-        token = in.readString();
-    }
+    Bitmap image;
 
     public Doctor() {
     }
@@ -60,6 +45,24 @@ public class Doctor implements Parcelable {
         this.registration = registration;
         this.imageName = imageName;
         this.token = token;
+    }
+
+    protected Doctor(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        password = in.readString();
+        contact = in.readString();
+        sex = in.readString();
+        special = in.readString();
+        qualification = in.readString();
+        chamber = in.readString();
+        days = in.readString();
+        hours = in.readString();
+        fee = in.readString();
+        registration = in.readString();
+        imageName = in.readString();
+        token = in.readString();
+        image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public static Creator<Doctor> getCREATOR() {
@@ -178,6 +181,14 @@ public class Doctor implements Parcelable {
         this.token = token;
     }
 
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -199,5 +210,6 @@ public class Doctor implements Parcelable {
         dest.writeString(registration);
         dest.writeString(imageName);
         dest.writeString(token);
+        dest.writeParcelable(image, flags);
     }
 }

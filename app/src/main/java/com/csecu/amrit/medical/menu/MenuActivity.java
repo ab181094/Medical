@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.csecu.amrit.medical.R;
+import com.csecu.amrit.medical.doctorList.ListActivity;
 import com.csecu.amrit.medical.signup.SignupActivity;
 
 public class MenuActivity extends AppCompatActivity {
@@ -32,6 +33,10 @@ public class MenuActivity extends AppCompatActivity {
                 if (position == 4) {
                     // toastIt("Clicked Icon: " + iconName[position]);
                     Intent intent = new Intent(MenuActivity.this, SignupActivity.class);
+                    startActivity(intent);
+                } else if (position == 0) {
+                    // toastIt("Clicked Icon: " + iconName[position]);
+                    Intent intent = new Intent(MenuActivity.this, ListActivity.class);
                     startActivity(intent);
                 }
             }

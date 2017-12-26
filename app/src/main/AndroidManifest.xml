@@ -3,7 +3,7 @@
     package="com.csecu.amrit.medical">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -46,17 +46,26 @@
                 android:value="com.csecu.amrit.medical.menu.MenuActivity" />
         </activity>
 
-        <service android:name="com.csecu.amrit.medical.firebase.MyFirebaseMessagingService">
+        <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service android:name="com.csecu.amrit.medical.firebase.MyFirebaseInstanceIDService">
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".doctorList.ListActivity"
+            android:label="@string/title_activity_list"
+            android:parentActivityName=".menu.MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.csecu.amrit.medical.menu.MenuActivity" />
+        </activity>
     </application>
 
 </manifest>

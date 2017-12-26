@@ -1,8 +1,6 @@
 package com.csecu.amrit.medical;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +20,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        SharedPreferences sharedpreferences = getApplicationContext().
-                getSharedPreferences(getString(R.string.mypreference), Context.MODE_PRIVATE);
-        String token = sharedpreferences.getString(getString(R.string.APP_TOKEN), "");
-        toastIt(token);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

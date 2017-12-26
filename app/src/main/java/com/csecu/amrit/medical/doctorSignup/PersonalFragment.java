@@ -24,7 +24,7 @@ import java.net.URLEncoder;
 public class PersonalFragment extends Fragment {
     View view;
     EditText etName, etPassword, etContact, etSex, etSpecial, etQualification;
-    FloatingActionButton btsubmit;
+    FloatingActionButton btSubmit;
 
     public PersonalFragment() {
         // Required empty public constructor
@@ -42,8 +42,8 @@ public class PersonalFragment extends Fragment {
         etSex = view.findViewById(R.id.personal_etsex);
         etSpecial = view.findViewById(R.id.personal_etspecial);
         etQualification = view.findViewById(R.id.personal_etqualification);
-        btsubmit = view.findViewById(R.id.personal_btsubmit);
-        btsubmit.setOnClickListener(new View.OnClickListener() {
+        btSubmit = view.findViewById(R.id.personal_btsubmit);
+        btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String[] values = new String[6];

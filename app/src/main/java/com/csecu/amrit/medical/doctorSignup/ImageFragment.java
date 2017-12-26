@@ -30,7 +30,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class ImageFragment extends Fragment {
     View view;
-    String imageName;
+    String imageName, name, password, contact, sex, special, qualification;
+    String chamber, days, hours, fee, registration, token;
     int RESULT_LOAD_IMAGE = 1;
     ImageView imImage;
     Button btSelect, btUpload;
@@ -47,6 +48,25 @@ public class ImageFragment extends Fragment {
         imImage = view.findViewById(R.id.image_ivImage);
         btSelect = view.findViewById(R.id.image_btSelect);
         btUpload = view.findViewById(R.id.image_btUpload);
+
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences sharedpreferences = getActivity().
+                getSharedPreferences(getString(R.string.mypreference), Context.MODE_PRIVATE);
+
+        name = sharedPref.getString(getString(R.string.USER_NAME), "");
+        password = sharedPref.getString(getString(R.string.USER_PASSWORD), "");
+        contact = sharedPref.getString(getString(R.string.USER_CONTACT), "");
+        sex = sharedPref.getString(getString(R.string.USER_SEX), "");
+        special = sharedPref.getString(getString(R.string.USER_SPECIAL), "");
+        qualification = sharedPref.getString(getString(R.string.USER_QUALIFICATION), "");
+        chamber = sharedPref.getString(getString(R.string.USER_CHAMBER), "");
+        days = sharedPref.getString(getString(R.string.USER_DAYS), "");
+        hours = sharedPref.getString(getString(R.string.USER_HOURS), "");
+        fee = sharedPref.getString(getString(R.string.USER_FEE), "");
+        registration = sharedPref.getString(getString(R.string.REGISTRATION_NUMBER), "");
+        token = sharedpreferences.getString(getString(R.string.APP_TOKEN), "");
+
         btSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +85,8 @@ public class ImageFragment extends Fragment {
 
                 Bitmap image = ((BitmapDrawable) imImage.getDrawable()).getBitmap();
                 BackEnd backEnd = new BackEnd(getContext());
-                backEnd.execute("image", image, imageName);
+                backEnd.execute("registration", image, imageName, name, password, contact, sex, special,
+                        qualification, chamber, days, hours, fee, registration, token);
             }
         });
         return view;

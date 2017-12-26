@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.csecu.amrit.medical.doctorSignup.DoctorSignupActivity;
@@ -65,12 +66,22 @@ public class BackEnd extends AsyncTask {
                 return unsupported_encoding_error;
             }
         } else if (type == "registration") {
-            String name = (String) params[1];
-            return name;
-        } else if (type == "image") {
             Bitmap image = (Bitmap) params[1];
-            String name = (String) params[2];
-            input_url = input_url + "upload.php";
+            String imageName = (String) params[2];
+            String name = (String) params[3];
+            String password = (String) params[4];
+            String contact = (String) params[5];
+            String sex = (String) params[6];
+            String special = (String) params[7];
+            String qualification = (String) params[8];
+            String chamber = (String) params[9];
+            String days = (String) params[10];
+            String hours = (String) params[11];
+            String fee = (String) params[12];
+            String registration = (String) params[13];
+            String token = (String) params[14];
+
+            String url = input_url + "insert.php";
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -79,9 +90,40 @@ public class BackEnd extends AsyncTask {
             String data = null;
             try {
                 data = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8")
+                        + "&" + URLEncoder.encode("password", "UTF-8") + "=" +
+                        URLEncoder.encode(password, "UTF-8") + "&" +
+                        URLEncoder.encode("contact", "UTF-8") + "=" +
+                        URLEncoder.encode(contact, "UTF-8") + "&" +
+                        URLEncoder.encode("sex", "UTF-8") + "=" +
+                        URLEncoder.encode(sex, "UTF-8") + "&" +
+                        URLEncoder.encode("special", "UTF-8") + "=" +
+                        URLEncoder.encode(special, "UTF-8") + "&" +
+                        URLEncoder.encode("qualification", "UTF-8") + "=" +
+                        URLEncoder.encode(qualification, "UTF-8") + "&" +
+                        URLEncoder.encode("chamber", "UTF-8") + "=" +
+                        URLEncoder.encode(chamber, "UTF-8") + "&" +
+                        URLEncoder.encode("days", "UTF-8") + "=" +
+                        URLEncoder.encode(days, "UTF-8") + "&" +
+                        URLEncoder.encode("hours", "UTF-8") + "=" +
+                        URLEncoder.encode(hours, "UTF-8") + "&" +
+                        URLEncoder.encode("fee", "UTF-8") + "=" +
+                        URLEncoder.encode(fee, "UTF-8") + "&" +
+                        URLEncoder.encode("registration", "UTF-8") + "=" +
+                        URLEncoder.encode(registration, "UTF-8") + "&" +
+                        URLEncoder.encode("imageName", "UTF-8") + "=" +
+                        URLEncoder.encode(imageName, "UTF-8") + "&" +
+                        URLEncoder.encode("token", "UTF-8") + "=" +
+                        URLEncoder.encode(token, "UTF-8");
+
+                String result = sendData(url, data);
+
+                url = input_url + "upload.php";
+
+                data = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(imageName, "UTF-8")
                         + "&" + URLEncoder.encode("image", "UTF-8") + "=" +
                         URLEncoder.encode(encodedImage, "UTF-8");
-                return sendData(input_url, data);
+                result = result + " and " + sendData(url, data);
+                return result;
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 return unsupported_encoding_error;
@@ -157,8 +199,7 @@ public class BackEnd extends AsyncTask {
             }
         } else if (type == "registration") {
             toastIt(result.toString());
-        } else if (type == "image") {
-            toastIt(result.toString());
+            Log.d("MSG", "Message: " + result.toString());
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

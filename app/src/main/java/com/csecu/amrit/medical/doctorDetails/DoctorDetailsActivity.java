@@ -1,7 +1,7 @@
 package com.csecu.amrit.medical.doctorDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.csecu.amrit.medical.R;
+import com.csecu.amrit.medical.appointment.AppointmentActivity;
 import com.csecu.amrit.medical.doctorList.Doctor;
 
 import java.io.UnsupportedEncodingException;
@@ -20,6 +21,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     TextView tvName, tvContact, tvSex, tvSpecial, tvQualification, tvChamber, tvDays,
             tvHours, tvFee, tvReg;
     ImageView imageView;
+    Doctor doctor = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,16 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         tvFee = (TextView) findViewById(R.id.doctor_details_tvFee);
         tvReg = (TextView) findViewById(R.id.doctor_details_tvRegistration);
 
-        final Doctor doctor = getIntent().getParcelableExtra("doctor");
+        doctor = getIntent().getParcelableExtra("doctor");
         showInfo(doctor);
 
-        Button fab = (Button) findViewById(R.id.doctor_details_btAppointment);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button button = (Button) findViewById(R.id.doctor_details_btAppointment);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(DoctorDetailsActivity.this, AppointmentActivity.class);
+                intent.putExtra("doctor", doctor);
+                startActivity(intent);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

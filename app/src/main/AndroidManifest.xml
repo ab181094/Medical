@@ -75,6 +75,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.csecu.amrit.medical.doctorList.ListActivity" />
         </activity>
+        <activity
+            android:name=".appointment.AppointmentActivity"
+            android:label="@string/title_activity_appointment"
+            android:parentActivityName=".doctorList.ListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.csecu.amrit.medical.doctorList.ListActivity" />
+        </activity>
     </application>
 
 </manifest>

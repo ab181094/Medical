@@ -42,4 +42,6 @@
     <string name="title_activity_doctor_details">Details</string>
     <string name="take_appointment">Take Appointment</string>
     <string name="reg_no">Reg. No</string>
+    <string name="title_activity_appointment">Appointment</string>
+    <string name="age">Age</string>
 </resources>

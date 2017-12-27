@@ -154,6 +154,36 @@ public class BackEnd extends AsyncTask {
                 e.printStackTrace();
                 return unsupported_encoding_error;
             }
+        } else if (type == "appointment") {
+            String name = (String) params[1];
+            String contact = (String) params[2];
+            String sex = (String) params[3];
+            String age = (String) params[4];
+            String token = (String) params[5];
+            String regNo = (String) params[6];
+
+            String url = input_url + "appointment.php";
+
+            String data = null;
+            try {
+                data = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8")
+                        + "&" + URLEncoder.encode("contact", "UTF-8") + "=" +
+                        URLEncoder.encode(contact, "UTF-8") + "&" +
+                        URLEncoder.encode("sex", "UTF-8") + "=" +
+                        URLEncoder.encode(sex, "UTF-8") + "&" +
+                        URLEncoder.encode("age", "UTF-8") + "=" +
+                        URLEncoder.encode(age, "UTF-8") + "&" +
+                        URLEncoder.encode("token", "UTF-8") + "=" +
+                        URLEncoder.encode(token, "UTF-8") + "&" +
+                        URLEncoder.encode("registration", "UTF-8") + "=" +
+                        URLEncoder.encode(regNo, "UTF-8");
+
+                String result = sendData(url, data);
+                return result;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return unsupported_encoding_error;
+            }
         } else {
             return unknown_error;
         }
@@ -234,6 +264,8 @@ public class BackEnd extends AsyncTask {
                 }
             }, 2000);
         } else if (type == "get") {
+            delegate.processFinish(result);
+        } else if (type == "appointment") {
             delegate.processFinish(result);
         }
     }

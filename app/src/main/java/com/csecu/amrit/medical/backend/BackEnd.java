@@ -33,8 +33,8 @@ import java.net.URLEncoder;
 
 public class BackEnd extends AsyncTask {
     public AsyncResponse delegate = null;
-    //String input_url = "http://192.168.137.1/medical/";
-    String input_url = "http://10.2.3.100/medical/";
+    String input_url = "http://192.168.137.1/medical/";
+    // String input_url = "http://10.2.3.100/medical/";
     String malformed_url_error = "Malformed URL has occurred";
     String unsupported_encoding_error = "Character Encoding is not supported";
     String protocol_exception_error = "There is an error in the underlying protocol";
@@ -161,6 +161,7 @@ public class BackEnd extends AsyncTask {
             String age = (String) params[4];
             String token = (String) params[5];
             String regNo = (String) params[6];
+            String doctorToken = (String) params[7];
 
             String url = input_url + "appointment.php";
 
@@ -179,6 +180,11 @@ public class BackEnd extends AsyncTask {
                         URLEncoder.encode(regNo, "UTF-8");
 
                 String result = sendData(url, data);
+
+                url = input_url + "send.php";
+                data = URLEncoder.encode("token", "UTF-8") + "=" +
+                        URLEncoder.encode(doctorToken, "UTF-8");
+                sendData(url, data);
                 return result;
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

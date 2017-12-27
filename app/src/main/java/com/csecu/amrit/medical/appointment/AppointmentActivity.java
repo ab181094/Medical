@@ -1,13 +1,12 @@
 package com.csecu.amrit.medical.appointment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,14 +15,13 @@ import com.csecu.amrit.medical.R;
 import com.csecu.amrit.medical.backend.AsyncResponse;
 import com.csecu.amrit.medical.backend.BackEnd;
 import com.csecu.amrit.medical.doctorList.Doctor;
-import com.csecu.amrit.medical.menu.MenuActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class AppointmentActivity extends AppCompatActivity implements AsyncResponse {
     EditText etName, etContact, etSex, etAge;
-    String token, regNo;
+    String token, regNo, doctorToken;
     BackEnd backEnd;
     Doctor doctor;
 
@@ -45,6 +43,7 @@ public class AppointmentActivity extends AppCompatActivity implements AsyncRespo
 
         doctor = getIntent().getParcelableExtra("doctor");
         regNo = doctor.getRegistration();
+        doctorToken = doctor.getToken();
 
         SharedPreferences sharedpreferences = getApplicationContext().
                 getSharedPreferences(getString(R.string.mypreference), Context.MODE_PRIVATE);
@@ -70,19 +69,20 @@ public class AppointmentActivity extends AppCompatActivity implements AsyncRespo
                     }
                 }
 
-                backEnd.execute("appointment", info[0], info[1], info[2], info[3], token, regNo);
+                backEnd.execute("appointment", info[0], info[1], info[2], info[3], token, regNo,
+                        doctorToken);
             }
         });
     }
 
     private void toastIt(String s) {
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void processFinish(Object output) {
         toastIt(output.toString());
-        etName.setText("");
+        /*etName.setText("");
         etContact.setText("");
         etSex.setText("");
         etAge.setText("");
@@ -93,6 +93,7 @@ public class AppointmentActivity extends AppCompatActivity implements AsyncRespo
                 Intent intent = new Intent(AppointmentActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
-        }, 2000);
+        }, 2000);*/
+        Log.d("Output", "Output: " + output.toString());
     }
 }
